@@ -1,22 +1,37 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm'
+import {
+   Entity,
+   PrimaryGeneratedColumn,
+   Column,
+   BaseEntity,
+   CreateDateColumn,
+   UpdateDateColumn,
+   OneToMany,
+} from 'typeorm'
+import { Movie } from './Movie'
 
 @Entity()
 export class User extends BaseEntity {
-   @PrimaryGeneratedColumn()
+   @PrimaryGeneratedColumn('uuid')
    id: number
 
-   @Column()
+   @Column({ type: 'varchar', length: 256, nullable: false })
    firstname: string
 
-   @Column()
+   @Column({ type: 'varchar', length: 256, nullable: false })
    lastname: string
 
-   @Column()
+   @Column({ type: 'int', nullable: false })
    age: number
 
-   @Column()
+   @Column({ type: 'varchar', length: 256, nullable: false })
    email: string
 
-   @Column()
+   @Column({ type: 'varchar', length: 256, nullable: false })
    password: string
+
+   @CreateDateColumn({ type: 'timestamp' })
+   createdAt: Date
+
+   @UpdateDateColumn({ type: 'timestamp' })
+   updatedAt: Date
 }

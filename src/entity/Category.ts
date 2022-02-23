@@ -5,25 +5,21 @@ import {
    UpdateDateColumn,
    Column,
    BaseEntity,
+   OneToMany,
    ManyToOne,
-   JoinColumn,
 } from 'typeorm'
-import { Category } from './Category'
+import { Movie } from './Movie'
 
 @Entity()
-export class Movie extends BaseEntity {
+export class Category extends BaseEntity {
    @PrimaryGeneratedColumn()
    id: number
 
    @Column()
    title: string
 
-   @Column('int', { default: 60 })
-   minutes: number
-
-   @ManyToOne(() => Category, (category) => category.movie)
-   @JoinColumn({ name: 'categoryId' })
-   category!: Category
+   @OneToMany(() => Movie, (movie) => movie.category)
+   movie!: Movie[]
 
    @CreateDateColumn({ type: 'timestamp' })
    createdAt: Date
