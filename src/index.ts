@@ -10,50 +10,53 @@ import serverConfig from './config/server.config'
 import connectDatabase from './config/db.config'
 
 import { MovieResolver } from './resolvers/MovieResolver'
+import { CategoryResolver } from './resolvers/CategoryResolver'
 import { buildSchema } from 'type-graphql'
+
+import errorHandler from './middlewares/error-handling'
 
 // main function that responsible for initialize the project
 async function ServerLuncher(): Promise<void> {
-   try {
-      const app: Application = express()
+    try {
+        const app: Application = express()
 
-      const schema = await buildSchema({
-         resolvers: [MovieResolver],
-      })
+        const schema = await buildSchema({
+            resolvers: [MovieResolver, CategoryResolver],
+        })
 
-      app.use(cookieParser())
+        app.use(cookieParser())
 
-      await connectDatabase()
-         .then(() => console.log('Database connected successfully !'))
-         .catch((err: any) => console.log(err))
+        await connectDatabase()
+            .then(() => console.log('Database connected successfully !'))
+            .catch((err: any) => console.log(err))
 
-      const server = new ApolloServer({
-         schema,
-         plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
-         context: ({ req, res }) => ({ req, res }),
-      })
+        const server = new ApolloServer({
+            schema,
+            plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
+            context: ({ req, res }) => ({ req, res }),
+        })
 
-      await server.start()
-      server.applyMiddleware({ app, cors: true })
+        await server.start()
+        server.applyMiddleware({ app, cors: true })
 
-      // Unavailable Request
-      app.use((_req: Request, res: Response, _next: NextFunction) => {
-         res.status(404).json({
-            success: false,
-            status: res.statusCode,
-            message: 'Unavailable Request',
-         })
-         res.end()
-      })
+        // Unavailable Request
+        app.use((_req: Request, res: Response, _next: NextFunction) => {
+            res.status(404).json({
+                success: false,
+                status: res.statusCode,
+                message: 'Unavailable Request',
+            })
+            res.end()
+        })
 
-      app.listen(serverConfig.port, async () => {
-         console.log(
-            `Server is Running on ${serverConfig['host']}${serverConfig['port']}${serverConfig['path']}`,
-         )
-      })
-   } catch (err) {
-      console.log(err)
-   }
+        app.listen(serverConfig.port, async () => {
+            console.log(
+                `Server is Running on ${serverConfig['host']}${serverConfig['port']}${serverConfig['path']}`,
+            )
+        })
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 ServerLuncher()
