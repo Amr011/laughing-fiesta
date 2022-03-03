@@ -1,11 +1,11 @@
 import {
-   Entity,
-   PrimaryGeneratedColumn,
-   Column,
-   BaseEntity,
-   CreateDateColumn,
-   UpdateDateColumn,
-   OneToMany,
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    BaseEntity,
+    CreateDateColumn,
+    UpdateDateColumn,
+    OneToMany,
 } from 'typeorm'
 import { Movie } from './Movie'
 import { Field, Int, ObjectType } from 'type-graphql'
@@ -13,35 +13,31 @@ import { Field, Int, ObjectType } from 'type-graphql'
 @ObjectType()
 @Entity()
 export class User extends BaseEntity {
-   @Field(() => Int)
-   @PrimaryGeneratedColumn()
-   id: number
+    @Field(() => Int)
+    @PrimaryGeneratedColumn()
+    id: number
 
-   @Field()
-   @Column({ type: 'varchar', length: 256, nullable: false })
-   firstname: string
+    @Field()
+    @Column({ type: 'varchar', length: 256, nullable: false })
+    firstname: string
 
-   @Field()
-   @Column({ type: 'varchar', length: 256, nullable: false })
-   lastname: string
+    @Field()
+    @Column({ type: 'varchar', length: 256, nullable: false })
+    lastname: string
 
-   @Field(() => Int)
-   @Column({ type: 'int', nullable: false })
-   age: number
+    @Field()
+    @Column({ type: 'varchar', length: 256, nullable: false })
+    email: string
 
-   @Field()
-   @Column({ type: 'varchar', length: 256, nullable: false })
-   email: string
+    @Column({ type: 'varchar', length: 256, nullable: false })
+    password: string
 
-   @Column({ type: 'varchar', length: 256, nullable: false })
-   password: string
+    @Column('int', { default: 0 })
+    tokenVersion: number
 
-   @Column('int', { default: 0 })
-   tokenVersion: number
+    @CreateDateColumn({ type: 'timestamp' })
+    createdAt: Date
 
-   @CreateDateColumn({ type: 'timestamp' })
-   createdAt: Date
-
-   @UpdateDateColumn({ type: 'timestamp' })
-   updatedAt: Date
+    @UpdateDateColumn({ type: 'timestamp' })
+    updatedAt: Date
 }

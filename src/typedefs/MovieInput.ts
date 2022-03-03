@@ -1,5 +1,4 @@
 import { Field, InputType, Int } from 'type-graphql'
-import { Category } from '../entity/Category'
 
 @InputType()
 export class MovieCreateInput {

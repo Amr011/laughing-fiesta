@@ -39,12 +39,12 @@ async function ServerLuncher(): Promise<void> {
         await server.start()
         server.applyMiddleware({ app, cors: true })
 
-        // Unavailable Request
+        // Unavailable Content
         app.use((_req: Request, res: Response, _next: NextFunction) => {
             res.status(404).json({
                 success: false,
                 status: res.statusCode,
-                message: 'Unavailable Request',
+                message: 'Unavailable Content !!',
             })
             res.end()
         })
