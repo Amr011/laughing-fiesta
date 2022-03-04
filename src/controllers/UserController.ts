@@ -4,11 +4,10 @@ import { UserLoginInput, UserRegisterInput } from '../typedefs/UserInput'
 
 import { hash, compare } from 'bcryptjs'
 
-export type typeSkipTake = number | undefined
 export default class UserController {
     public getManyUser = async function (
-        take: typeSkipTake,
-        skip: typeSkipTake,
+        take?: number,
+        skip?: number,
     ): Promise<User[]> {
         return await errorHandler(
             await User.find({
@@ -37,15 +36,15 @@ export default class UserController {
         ).then((user) => {
             existedUser = user
         })
+        if (existedUser) return false
+
         await errorHandler(
-            await hash(input.password, 12).then(
-                (hashedPass) => (input.password = hashedPass),
-            ),
+            await hash(input.password, 12).then((hashedPass) => {
+                input.password = hashedPass
+                User.create(input).save()
+            }),
         )
-        if (!existedUser) {
-            await errorHandler(await User.create(input).save())
-            return true
-        } else return false
+        return true
     }
     public loginUser = async function (
         input: UserLoginInput,

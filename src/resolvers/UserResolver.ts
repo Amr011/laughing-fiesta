@@ -1,5 +1,5 @@
 import { Resolver, Mutation, Arg, Int, Query } from 'type-graphql'
-import UserController, { typeSkipTake } from '../controllers/UserController'
+import UserController from '../controllers/UserController'
 import { User } from '../entity/User'
 import { UserRegisterInput } from '../typedefs/UserInput'
 
@@ -40,11 +40,8 @@ export class UserResolver {
 
     // Get Many User Data
     @Query((_type) => [User])
-    public async getManyUser(
-        @Arg('take') take?: typeSkipTake,
-        @Arg('skip') skip?: typeSkipTake,
-    ): Promise<User[]> {
-        return await new UserController().getManyUser(take, skip)
+    public async getManyUser(): Promise<User[]> {
+        return await new UserController().getManyUser(2)
     }
 
     // // Verify User Email Mutation
