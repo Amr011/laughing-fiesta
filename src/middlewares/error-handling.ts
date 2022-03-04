@@ -1,7 +1,6 @@
-export default async function errorHandler(anyFunction?: any): Promise<any> {
+export default async function errorHandler(anyFunction?: any) {
     try {
-        await anyFunction
-        return anyFunction
+        return await anyFunction
     } catch (err: any) {
         throw new Error(err)
     }

@@ -29,11 +29,12 @@ export class User extends BaseEntity {
     @Column({ type: 'varchar', length: 256, nullable: false })
     email: string
 
+    @Field()
     @Column({ type: 'varchar', length: 256, nullable: false })
     password: string
 
-    @Column('int', { default: 0 })
-    tokenVersion: number
+    // @Column('int', { default: 0 })
+    // tokenVersion: number
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date

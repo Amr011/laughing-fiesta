@@ -11,6 +11,7 @@ import connectDatabase from './config/db.config'
 
 import { MovieResolver } from './resolvers/MovieResolver'
 import { CategoryResolver } from './resolvers/CategoryResolver'
+import { UserResolver } from './resolvers/UserResolver'
 import { buildSchema } from 'type-graphql'
 
 import errorHandler from './middlewares/error-handling'
@@ -21,7 +22,7 @@ async function ServerLuncher(): Promise<void> {
         const app: Application = express()
 
         const schema = await buildSchema({
-            resolvers: [MovieResolver, CategoryResolver],
+            resolvers: [UserResolver, MovieResolver, CategoryResolver],
         })
 
         app.use(cookieParser())

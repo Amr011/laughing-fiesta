@@ -1,48 +1,79 @@
 import { Resolver, Mutation, Arg, Int, Query } from 'type-graphql'
+import UserController, { typeSkipTake } from '../controllers/UserController'
+import { User } from '../entity/User'
+import { UserRegisterInput } from '../typedefs/UserInput'
 
 @Resolver()
-export default class UserResolver {
+export class UserResolver {
     // Register User Mutation
-    @Mutation()
-    public async registerUser() {}
+    @Mutation((_type) => Boolean)
+    public async registerUser(
+        @Arg('input', () => UserRegisterInput)
+        input: UserRegisterInput,
+    ): Promise<boolean> {
+        return await new UserController().registerUser(input)
+    }
 
-    // Login User Mutation
-    @Mutation()
-    public async loginUser() {}
+    // // Login User Mutation
+    // @Mutation()
+    // public async loginUser() {
+    //     return true
+    // }
 
-    // Logout User Mutation
-    @Mutation()
-    public async logoutUser() {}
+    // // Logout User Mutation
+    // @Mutation()
+    // public async logoutUser() {
+    //     return true
+    // }
 
-    // Get Own User Data Query
-    @Query()
-    public async getOwnUser() {}
+    // // Get Own User Data Query
+    // @Query()
+    // public async getOwnUser() {
+    //     return true
+    // }
 
-    // Get Any User Data Query
-    @Query()
-    public async getAnyUser() {}
+    // // Get Any User Data Query
+    // @Query()
+    // public async getAnyUser() {
+    //     return true
+    // }
 
     // Get Many User Data
-    @Query()
-    public async getManyUser() {}
+    @Query((_type) => [User])
+    public async getManyUser(
+        @Arg('take') take?: typeSkipTake,
+        @Arg('skip') skip?: typeSkipTake,
+    ): Promise<User[]> {
+        return await new UserController().getManyUser(take, skip)
+    }
 
-    // Verify User Email Mutation
-    @Mutation()
-    public async verifyUser() {}
+    // // Verify User Email Mutation
+    // @Mutation()
+    // public async verifyUser() {
+    //     return true
+    // }
 
-    // Forget User Password Mutation
-    @Mutation()
-    public async forgetPasswordUser() {}
+    // // Forget User Password Mutation
+    // @Mutation()
+    // public async forgetPasswordUser() {
+    //     return true
+    // }
 
-    // Change User Password Mutation
-    @Mutation()
-    public async changePasswordUser() {}
+    // // Change User Password Mutation
+    // @Mutation()
+    // public async changePasswordUser() {
+    //     return true
+    // }
 
-    // Update User Settings Mutation
-    @Mutation()
-    public async updateOwnUser() {}
+    // // Update User Settings Mutation
+    // @Mutation()
+    // public async updateOwnUser() {
+    //     return true
+    // }
 
-    // Delete User Mutation
-    @Mutation()
-    public async deleteOwnUser() {}
+    // // Delete User Mutation
+    // @Mutation()
+    // public async deleteOwnUser() {
+    //     return true
+    // }
 }

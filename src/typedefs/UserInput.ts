@@ -6,13 +6,22 @@ export class UserRegisterInput {
     firstname: string
 
     @Field()
-    lastname: number
+    lastname: string
 
     @Field()
-    email: number
+    email: string
 
     @Field()
-    password: number
+    password: string
+}
+
+@InputType()
+export class UserLoginInput {
+    @Field()
+    email: string
+
+    @Field()
+    password: string
 }
 
 @InputType()
