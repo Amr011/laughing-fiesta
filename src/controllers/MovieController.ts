@@ -1,7 +1,7 @@
 import { Movie } from '../entity/Movie'
 
 import errorHandler from '../middlewares/error-handling'
-import { MovieCreateInput, MovieUpdateInput } from '../typedefs/MovieInput'
+import { MovieCreateInput, MovieUpdateInput } from '../typedefs/Movie'
 
 export default class MovieController {
     public getManyMovie = async function (): Promise<Movie[]> {

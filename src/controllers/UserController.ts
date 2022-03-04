@@ -1,18 +1,18 @@
 import { User } from '../entity/User'
 import errorHandler from '../middlewares/error-handling'
-import { UserLoginInput, UserRegisterInput } from '../typedefs/UserInput'
+import { UserLoginInput, UserRegisterInput } from '../typedefs/User'
 
 import { hash, compare } from 'bcryptjs'
 
 export default class UserController {
     public getManyUser = async function (
-        take?: number,
-        skip?: number,
+        takeRows?: number,
+        skipRows?: number,
     ): Promise<User[]> {
         return await errorHandler(
             await User.find({
-                take,
-                skip,
+                take: takeRows,
+                skip: skipRows,
             }),
         )
     }
@@ -27,7 +27,6 @@ export default class UserController {
         input: UserRegisterInput,
     ): Promise<boolean> {
         let existedUser: string | undefined
-
         await errorHandler(
             await User.findOne({
                 where: { email: input.email },
@@ -37,7 +36,6 @@ export default class UserController {
             existedUser = user
         })
         if (existedUser) return false
-
         await errorHandler(
             await hash(input.password, 12).then((hashedPass) => {
                 input.password = hashedPass

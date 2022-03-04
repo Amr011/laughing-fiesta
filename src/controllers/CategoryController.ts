@@ -1,9 +1,6 @@
 import { Category } from '../entity/Category'
 import errorHandler from '../middlewares/error-handling'
-import {
-    CategoryCreateInput,
-    CategoryUpdateInput,
-} from '../typedefs/CategoryInput'
+import { CategoryCreateInput, CategoryUpdateInput } from '../typedefs/Category'
 
 export default class CategoryController {
     public getManyCategory = async function (): Promise<Category[]> {

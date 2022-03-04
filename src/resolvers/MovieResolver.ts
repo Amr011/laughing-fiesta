@@ -2,7 +2,7 @@ import { Resolver, Mutation, Arg, Int, Query } from 'type-graphql'
 import { Movie } from '../entity/Movie'
 
 import movieController from '../controllers/MovieController'
-import { MovieUpdateInput, MovieCreateInput } from '../typedefs/MovieInput'
+import { MovieUpdateInput, MovieCreateInput } from '../typedefs/Movie'
 
 @Resolver()
 export class MovieResolver {

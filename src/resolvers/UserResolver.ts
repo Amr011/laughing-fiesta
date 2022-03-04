@@ -1,7 +1,7 @@
 import { Resolver, Mutation, Arg, Int, Query } from 'type-graphql'
 import UserController from '../controllers/UserController'
 import { User } from '../entity/User'
-import { UserRegisterInput } from '../typedefs/UserInput'
+import { UserRegisterInput } from '../typedefs/User'
 
 @Resolver()
 export class UserResolver {

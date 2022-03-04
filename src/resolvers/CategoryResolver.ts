@@ -1,9 +1,6 @@
 import { Arg, Int, Mutation, Query, Resolver } from 'type-graphql'
 import { Category } from '../entity/Category'
-import {
-    CategoryCreateInput,
-    CategoryUpdateInput,
-} from '../typedefs/CategoryInput'
+import { CategoryCreateInput, CategoryUpdateInput } from '../typedefs/Category'
 import CategoryController from '../controllers/CategoryController'
 
 @Resolver()
